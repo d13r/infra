@@ -52,6 +52,11 @@ resource "aws_iam_user" "silver_ses_postfix" {
   name = "silver-postfix-ses"
 }
 
+resource "aws_iam_user_group_membership" "silver_ses_postfix_sending" {
+  user   = aws_iam_user.silver_ses_postfix.name
+  groups = [data.aws_iam_group.ses_sending.group_name]
+}
+
 resource "aws_iam_access_key" "silver_ses_postfix" {
   user = aws_iam_user.silver_ses_postfix.name
 }

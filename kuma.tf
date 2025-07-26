@@ -10,6 +10,11 @@ resource "aws_iam_user" "kuma_ses" {
   name = "kuma-ses"
 }
 
+resource "aws_iam_user_group_membership" "kuma_ses_sending" {
+  user   = aws_iam_user.kuma_ses.name
+  groups = [data.aws_iam_group.ses_sending.group_name]
+}
+
 resource "aws_iam_access_key" "kuma_ses" {
   user = aws_iam_user.kuma_ses.name
 }
@@ -22,4 +27,3 @@ output "kuma_smtp_password" {
   value     = aws_iam_access_key.kuma_ses.ses_smtp_password_v4
   sensitive = true
 }
-

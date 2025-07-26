@@ -37,3 +37,7 @@ resource "cloudflare_dns_record" "ses_djm_me_TXT" {
   content = "\"v=spf1 include:amazonses.com -all\""
   ttl     = 1
 }
+
+data "aws_iam_group" "ses_sending" {
+  group_name = "AWSSESSendingGroupDoNotRename"
+}

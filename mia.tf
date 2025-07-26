@@ -18,6 +18,11 @@ resource "aws_iam_user" "mia_ses_postfix" {
   name = "mia-postfix-ses"
 }
 
+resource "aws_iam_user_group_membership" "mia_ses_postfix_sending" {
+  user   = aws_iam_user.mia_ses_postfix.name
+  groups = [data.aws_iam_group.ses_sending.group_name]
+}
+
 resource "aws_iam_access_key" "mia_ses_postfix" {
   user = aws_iam_user.mia_ses_postfix.name
 }
