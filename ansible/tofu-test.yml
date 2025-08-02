@@ -1,0 +1,18 @@
+- name: Tofu test
+  hosts: running
+  tasks:
+    - name: Get Terraform outputs
+      ansible.builtin.command: ../bin/tofu output -json
+      register: tofu_json
+      run_once: true
+      delegate_to: 127.0.0.1
+      changed_when: false
+
+    - name: Parse Terraform outputs JSON
+      set_fact:
+        tofu: '{{ tofu_json.stdout | from_json }}'
+      delegate_to: 127.0.0.1
+      run_once: true
+
+    - ansible.builtin.debug:
+        var: tofu
