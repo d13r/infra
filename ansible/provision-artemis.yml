@@ -1,0 +1,5 @@
+- name: Provision Artemis
+  hosts: artemis
+
+  roles:
+    - fzf

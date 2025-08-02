@@ -1,0 +1,6 @@
+- name: Provision WSL
+  hosts: wsl
+  become: true
+
+  roles:
+    - fzf
