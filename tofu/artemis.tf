@@ -1,3 +1,4 @@
+# VM
 resource "hcloud_server" "artemis" {
   name         = "artemis.djm.me"
   server_type  = "cx22" # 2 vCPU (Intel), 4 GB RAM, 40 GB SSD, 20 TB traffic
@@ -12,18 +13,7 @@ resource "hcloud_server" "artemis" {
   }
 }
 
-resource "hcloud_rdns" "artemis_ipv4" {
-  server_id  = hcloud_server.artemis.id
-  ip_address = hcloud_server.artemis.ipv4_address
-  dns_ptr    = "artemis.djm.me"
-}
-
-resource "hcloud_rdns" "artemis_ipv6" {
-  server_id  = hcloud_server.artemis.id
-  ip_address = hcloud_server.artemis.ipv6_address
-  dns_ptr    = "artemis.djm.me"
-}
-
+# DNS
 resource "cloudflare_dns_record" "artemis_djm_me_A" {
   zone_id = data.cloudflare_zone.djm_me.zone_id
   name    = "artemis.djm.me"
@@ -40,6 +30,20 @@ resource "cloudflare_dns_record" "artemis_djm_me_AAAA" {
   ttl     = 1
 }
 
+# Reverse DNS
+resource "hcloud_rdns" "artemis_ipv4" {
+  server_id  = hcloud_server.artemis.id
+  ip_address = hcloud_server.artemis.ipv4_address
+  dns_ptr    = "artemis.djm.me"
+}
+
+resource "hcloud_rdns" "artemis_ipv6" {
+  server_id  = hcloud_server.artemis.id
+  ip_address = hcloud_server.artemis.ipv6_address
+  dns_ptr    = "artemis.djm.me"
+}
+
+# SMTP user
 resource "aws_iam_user" "artemis_ses_postfix" {
   name = "artemis-postfix-ses"
 }
@@ -59,5 +63,15 @@ output "artemis_postfix_smtp_username" {
 
 output "artemis_postfix_smtp_password" {
   value     = aws_iam_access_key.artemis_ses_postfix.ses_smtp_password_v4
+  sensitive = true
+}
+
+# Initial password for Ansible (used for sudo)
+resource "random_password" "artemis_dave_password" {
+  length = 20
+}
+
+output "artemis_dave_password" {
+  value     = random_password.artemis_dave_password.result
   sensitive = true
 }

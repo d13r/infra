@@ -1,3 +1,4 @@
+# VM
 resource "hcloud_server" "silver" {
   name         = "silver.djm.me"
   server_type  = "cx22" # 2 vCPU (Intel), 4 GB RAM, 40 GB SSD, 20 TB traffic
@@ -12,18 +13,7 @@ resource "hcloud_server" "silver" {
   }
 }
 
-resource "hcloud_rdns" "silver_ipv4" {
-  server_id  = hcloud_server.silver.id
-  ip_address = hcloud_server.silver.ipv4_address
-  dns_ptr    = "silver.djm.me"
-}
-
-resource "hcloud_rdns" "silver_ipv6" {
-  server_id  = hcloud_server.silver.id
-  ip_address = hcloud_server.silver.ipv6_address
-  dns_ptr    = "silver.djm.me"
-}
-
+# DNS
 resource "cloudflare_dns_record" "silver_djm_me_A" {
   zone_id = data.cloudflare_zone.djm_me.zone_id
   name    = "silver.djm.me"
@@ -40,6 +30,20 @@ resource "cloudflare_dns_record" "silver_djm_me_AAAA" {
   ttl     = 1
 }
 
+# Reverse DNS
+resource "hcloud_rdns" "silver_ipv4" {
+  server_id  = hcloud_server.silver.id
+  ip_address = hcloud_server.silver.ipv4_address
+  dns_ptr    = "silver.djm.me"
+}
+
+resource "hcloud_rdns" "silver_ipv6" {
+  server_id  = hcloud_server.silver.id
+  ip_address = hcloud_server.silver.ipv6_address
+  dns_ptr    = "silver.djm.me"
+}
+
+# SMTP user
 resource "aws_iam_user" "silver_ses_postfix" {
   name = "silver-postfix-ses"
 }

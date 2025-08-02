@@ -2,4 +2,5 @@
   hosts: artemis
 
   roles:
+    - { role: user_dave, tags: dave }
     - { role: software_fzf, tags: fzf }
