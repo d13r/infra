@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+HEADING=$'\e[96;1m' # LCYAN+BOLD
+RESET=$'\e[0m'
+
+# Ansible
+echo "${HEADING}Installing Ansible...${RESET}"
+sudo apt install ansible
+echo
+
+# OpenTofu
+echo "${HEADING}Installing OpenTofu...${RESET}"
+curl --proto '=https' --tlsv1.2 -fsSL https://get.opentofu.org/install-opentofu.sh |
+    bash -s -- --install-method deb
