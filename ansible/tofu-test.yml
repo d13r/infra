@@ -2,7 +2,7 @@
   hosts: running
 
   roles:
-    - role: tofu_outputs
+    - role: action_load_tofu_outputs
 
   tasks:
     - name: Display outputs

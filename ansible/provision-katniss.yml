@@ -2,4 +2,4 @@
   hosts: katniss
 
   roles:
-    - { role: fzf, tags: fzf }
+    - { role: software_fzf, tags: fzf }
