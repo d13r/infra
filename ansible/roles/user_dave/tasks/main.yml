@@ -6,6 +6,20 @@
     groups: [adm, sudo, www-data]
     append: true
     shell: /bin/bash
+  register: user_dave
+
+- name: Check for ~dave/.git
+  ansible.builtin.stat:
+    path: ~dave/.git
+  register: user_dave_dotfiles_git
+
+- name: Automatically install dotfiles on first run
+  ansible.builtin.copy:
+    dest: ~dave/.bashrc
+    content: '[[ ! -d .git ]] && cd && wget https://djm.me/cfg && source cfg'
+    owner: dave
+    group: dave
+  when: not user_dave_dotfiles_git.stat.exists
 
 - name: Copy SSH key
   ansible.posix.authorized_key:

@@ -4,3 +4,4 @@
   roles:
     - { role: user_dave, tags: dave }
     - { role: software_fzf, tags: fzf }
+    - { role: software_tmux, tags: tmux }
