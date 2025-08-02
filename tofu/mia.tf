@@ -35,4 +35,3 @@ output "mia_postfix_smtp_password" {
   value     = aws_iam_access_key.mia_ses_postfix.ses_smtp_password_v4
   sensitive = true
 }
-

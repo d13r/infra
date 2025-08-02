@@ -1,0 +1,5 @@
+- name: Provision Katniss
+  hosts: katniss
+
+  roles:
+    - fzf
