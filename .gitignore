@@ -1,5 +1,5 @@
-*.tfstate
-*.tfstate.backup
-.env
-.idea/
-.terraform/
+/.env
+/.idea/
+/tofu/*.tfstate
+/tofu/*.tfstate.backup
+/tofu/.terraform/
