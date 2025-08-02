@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
+cd "$(dirname "$0")/.."
 
 HEADING=$'\e[96;1m' # LCYAN+BOLD
 RESET=$'\e[0m'
@@ -13,3 +14,10 @@ echo
 echo "${HEADING}Installing OpenTofu...${RESET}"
 curl --proto '=https' --tlsv1.2 -fsSL https://get.opentofu.org/install-opentofu.sh |
     bash -s -- --install-method deb
+
+# Config file
+if [[ ! -f .env ]]; then
+    echo
+    echo "${HEADING}Creating .env file...${RESET}"
+    cp -v .env.example .env
+fi
