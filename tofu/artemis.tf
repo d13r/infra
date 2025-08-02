@@ -1,7 +1,7 @@
 resource "hcloud_server" "artemis" {
   name         = "artemis.djm.me"
   server_type  = "cx22" # 2 vCPU (Intel), 4 GB RAM, 40 GB SSD, 20 TB traffic
-  image        = "debian-12"
+  image        = "ubuntu-24.04"
   location     = "hel1"
   backups      = true
   firewall_ids = [hcloud_firewall.web_server.id]
