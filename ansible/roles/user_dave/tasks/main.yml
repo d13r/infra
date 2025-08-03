@@ -16,7 +16,7 @@
 - name: Automatically install dotfiles on first run
   ansible.builtin.copy:
     dest: ~dave/.bashrc
-    content: '[[ ! -d .git ]] && cd && wget https://djm.me/cfg && source cfg'
+    content: "[[ $- = *i* && ! -d ~/.git ]] && cd && wget https://djm.me/cfg && . cfg\n"
     owner: dave
     group: dave
   when: not user_dave_dotfiles_git.stat.exists
