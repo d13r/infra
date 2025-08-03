@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+set -euo pipefail
+cd "$(dirname "$0")"
+
+ANSIBLE_FORCE_COLOR=1 exec ./ansible-playbook facts.yml "$@" | less

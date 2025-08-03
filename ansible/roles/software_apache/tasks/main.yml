@@ -1,0 +1,43 @@
+- name: Install Apache and related packages
+  ansible.builtin.apt:
+    name:
+      - apache2
+      - apache2-utils
+      - elinks # For 'apache2ctl status'
+      - ssl-cert
+    state: present
+
+- name: Enable Apache modules
+  community.general.apache2_module:
+    name: '{{ item }}'
+    state: present
+  loop:
+    - headers
+    - http2
+    - rewrite
+    - ssl
+  notify: Reload Apache
+
+- name: Disable other vhosts access log
+  ansible.builtin.file:
+    path: /etc/apache2/conf-enabled/other-vhosts-access-log.conf
+    state: absent
+  notify: Reload Apache
+
+- name: Configure Apache
+  ansible.builtin.copy:
+    src: common.conf
+    dest: /etc/apache2/conf-enabled/z_common.conf
+  notify: Reload Apache
+
+- name: Configure the default Apache site
+  ansible.builtin.copy:
+    src: default-site.conf
+    dest: /etc/apache2/sites-enabled/001-default.conf
+  notify: Reload Apache
+
+- name: Disable the Ubuntu default Apache site
+  ansible.builtin.file:
+    path: /etc/apache2/sites-enabled/000-default.conf
+    state: absent
+  notify: Reload Apache

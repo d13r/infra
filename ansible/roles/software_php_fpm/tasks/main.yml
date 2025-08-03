@@ -1,0 +1,18 @@
+- name: Install PHP-FPM {{ php_version }}
+  ansible.builtin.apt:
+    name: php{{ php_version }}-fpm
+    state: present
+
+# Not enabling the phpX-fpm config because it's best for each site to configure it explicitly
+- name: Enable Apache FCGI proxy
+  community.general.apache2_module:
+    name: proxy_fcgi
+    state: present
+  notify: Reload Apache
+
+- name: Configure PHP {{ php_version }} (FPM)
+  ansible.builtin.copy:
+    # I should probably move this into a shared role or something...
+    src: '{{ playbook_dir }}/roles/software_php/files/{{ "php-debug.ini" if php_debugging else "php-prod.ini" }}'
+    dest: /etc/php/{{ php_version }}/fpm/conf.d/99-dave.ini
+  notify: Reload PHP-FPM {{ php_version }}

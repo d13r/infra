@@ -1,0 +1,12 @@
+- name: Update SMTP relay password lookup table
+  ansible.builtin.command: postmap /etc/postfix/sasl_passwd
+  notify: Reload Postfix
+
+- name: Update the Postfix alias database
+  ansible.builtin.command: newaliases
+  notify: Reload Postfix
+
+- name: Reload Postfix
+  ansible.builtin.service:
+    name: postfix
+    state: reloaded

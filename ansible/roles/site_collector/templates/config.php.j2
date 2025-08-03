@@ -1,0 +1,48 @@
+<?php
+
+return [
+
+    // Username
+    'username' => 'dave',
+
+    // Password hash (run bin/generate-password-hash)
+    'password-hash' => '{{ password_hash }}',
+
+    // Targets
+    'targets' => [
+
+        'home' => [
+            'title' => 'Home',
+            'shortcut' => 'h',
+            'return' => 'd@djm.me',
+            'from' => 'Dave James Miller <d@djm.me>',
+            'replyto' => ['Dave James Miller <d@djm.me>'],
+            'to' => ['Dave James Miller <d@djm.me>'],
+            'color' => '#e28400',
+        ],
+
+        'work' => [
+            'title' => 'Work',
+            'shortcut' => 'w',
+            'return' => 'd@djm.me',
+            'from' => 'Dave James Miller <d@djm.me>',
+            'replyto' => ['Dave Miller <dave.miller@maths.ox.ac.uk>'],
+            'to' => ['Dave Miller <dave.miller@maths.ox.ac.uk>'],
+            'color' => '#3277ae',
+        ],
+
+        /*
+        'both' => [
+            'title' => 'Both',
+            'shortcut' => 'b',
+            'return' => 'd@djm.me',
+            'from' => 'Dave James Miller <d@djm.me>',
+            'replyto' => ['Dave James Miller <d@djm.me>', 'Dave Miller <dave.miller@maths.ox.ac.uk>'],
+            'to' => ['Dave James Miller <d@djm.me>', 'Dave Miller <dave.miller@maths.ox.ac.uk>'],
+            'color' => '#c00',
+        ],
+        */
+
+    ],
+
+];

@@ -2,4 +2,4 @@
 set -euo pipefail
 cd "$(dirname "$0")"
 
-exec ./ansible-playbook ping.yml
+exec ./ansible-playbook ping.yml "$@"

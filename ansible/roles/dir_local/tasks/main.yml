@@ -1,0 +1,7 @@
+- name: Create /local
+  ansible.builtin.file:
+    path: /local
+    state: directory
+    owner: root
+    group: adm
+    mode: g+ws

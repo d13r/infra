@@ -1,0 +1,39 @@
+- name: Install Postfix and related utilities
+  ansible.builtin.apt:
+    name:
+      - postfix
+      - mailutils
+      - mutt
+    state: present
+
+- name: Configure SMTP relay password
+  ansible.builtin.copy:
+    dest: /etc/postfix/sasl_passwd
+    content: |
+      [email-smtp.eu-west-1.amazonaws.com]:587 {{ username }}:{{ password }}
+    mode: '0600'
+  vars:
+    username: '{{ tofu_outputs[ansible_hostname + "_postfix_smtp_username"].value }}'
+    password: '{{ tofu_outputs[ansible_hostname + "_postfix_smtp_password"].value }}'
+  notify: Update SMTP relay password lookup table
+
+- name: Configure Postfix
+  ansible.builtin.lineinfile:
+    path: /etc/postfix/main.cf
+    regexp: '^{{ item.key }}\s*='
+    line: '{{ item.key }} = {{ item.value }}'
+  with_dict:
+    relayhost: '[email-smtp.eu-west-1.amazonaws.com]:587'
+    smtp_sasl_auth_enable: 'yes'
+    smtp_sasl_password_maps: 'hash:/etc/postfix/sasl_passwd'
+    smtp_sasl_security_options: 'noanonymous'
+  notify: Reload Postfix
+
+- name: Configure Postfix aliases
+  ansible.builtin.lineinfile:
+    path: /etc/aliases
+    regexp: '^{{ item.key }}:'
+    line: '{{ item.key }}: {{ item.value }}'
+  with_dict:
+    root: d@djm.me
+  notify: Update the Postfix alias database

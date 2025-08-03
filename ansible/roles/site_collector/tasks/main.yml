@@ -1,0 +1,44 @@
+- name: Clone Collector repository
+  ansible.builtin.git:
+    repo: https://github.com/d13r/collector.git
+    dest: /local/collector
+    update: false
+  become: true
+  become_user: dave
+
+- name: Configure Collector
+  ansible.builtin.template:
+    src: config.php.j2
+    dest: /local/collector/config.php
+    group: www-data
+    mode: '0660'
+  vars:
+    password_hash: '{{ tofu_outputs.collector_dave_password.value }}'
+
+- name: Install Collector dependencies
+  ansible.builtin.command: composer install --no-interaction --no-dev
+  args:
+    chdir: /local/collector
+    creates: /local/collector/vendor
+  become: true
+  become_user: dave
+
+- name: Generate certificate for c.djm.me
+  ansible.builtin.shell: |
+    sudo certbot certonly \
+      --non-interactive \
+      --cert-name c.djm.me \
+      --domains c.djm.me \
+      --dns-cloudflare \
+      --dns-cloudflare-credentials /etc/letsencrypt/cloudflare-credentials.ini \
+      --dns-cloudflare-propagation-seconds 30 \
+      --email d@djm.me \
+      --agree-tos
+  args:
+    creates: /etc/letsencrypt/live/c.djm.me
+
+- name: Configure the c.djm.me vhost
+  ansible.builtin.copy:
+    src: collector-site.conf
+    dest: /etc/apache2/sites-enabled/collector.conf
+  notify: Reload Apache

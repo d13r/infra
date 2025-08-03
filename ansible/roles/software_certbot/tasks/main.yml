@@ -1,0 +1,19 @@
+- name: Install Certbot
+  ansible.builtin.apt:
+    name:
+      - certbot
+      - python3-certbot-apache
+      - python3-certbot-dns-cloudflare
+
+- name: Configure Certbot Cloudflare credentials
+  ansible.builtin.template:
+    src: cloudflare-credentials.ini.j2
+    dest: /etc/letsencrypt/cloudflare-credentials.ini
+    mode: '0600'
+  vars:
+    token: '{{ tofu_outputs[ansible_hostname + "_cloudflare_certbot_token"].value }}'
+
+- name: Create renewal script
+  ansible.builtin.copy:
+    src: deploy.sh
+    dest: /etc/letsencrypt/renewal-hooks/deploy/deploy.sh

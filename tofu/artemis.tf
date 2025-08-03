@@ -1,12 +1,12 @@
 # VM
 resource "hcloud_server" "artemis" {
-  name         = "artemis.djm.me"
-  server_type  = "cx22" # 2 vCPU (Intel), 4 GB RAM, 40 GB SSD, 20 TB traffic
-  image        = "ubuntu-24.04"
-  location     = "hel1"
-  backups      = true
+  name     = "artemis.djm.me"
+  server_type = "cx22" # 2 vCPU (Intel), 4 GB RAM, 40 GB SSD, 20 TB traffic
+  image    = "ubuntu-24.04"
+  location = "hel1"
+  backups  = true
   firewall_ids = [hcloud_firewall.web_server.id]
-  ssh_keys     = [hcloud_ssh_key.personal.id]
+  ssh_keys = [hcloud_ssh_key.personal.id]
 
   lifecycle {
     ignore_changes = [ssh_keys]
@@ -49,7 +49,7 @@ resource "aws_iam_user" "artemis_ses_postfix" {
 }
 
 resource "aws_iam_user_group_membership" "artemis_ses_postfix_sending" {
-  user   = aws_iam_user.artemis_ses_postfix.name
+  user = aws_iam_user.artemis_ses_postfix.name
   groups = [data.aws_iam_group.ses_sending.group_name]
 }
 
@@ -66,7 +66,33 @@ output "artemis_postfix_smtp_password" {
   sensitive = true
 }
 
-# Initial password for Ansible (used for sudo)
+# Cloudflare token for Certbot
+resource "cloudflare_api_token" "artemis_certbot" {
+  name = "Certbot on artemis.djm.me"
+  policies = [
+    {
+      effect = "allow"
+      permission_groups = [
+        { id = data.cloudflare_account_api_token_permission_groups_list.zone_write.result[0].id }
+      ]
+      resources = {
+        "com.cloudflare.api.account.zone.${data.cloudflare_zone.djm_me.zone_id}" = "*"
+      }
+    }
+  ]
+  condition = {
+    request_ip = {
+      in = ["${hcloud_server.artemis.ipv4_address}/32", hcloud_server.artemis.ipv6_network]
+    }
+  }
+}
+
+output "artemis_cloudflare_certbot_token" {
+  value     = cloudflare_api_token.artemis_certbot.value
+  sensitive = true
+}
+
+# User password for Ansible
 resource "random_password" "artemis_dave_password" {
   length = 20
 }

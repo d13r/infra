@@ -1,0 +1,32 @@
+- name: Add PHP PPA
+  ansible.builtin.apt_repository:
+    repo: ppa:ondrej/php
+
+- name: Install PHP {{ php_version }} and dependencies
+  ansible.builtin.apt:
+    name:
+      - php{{ php_version }}-bcmath
+      - php{{ php_version }}-cli
+      - php{{ php_version }}-curl
+      - php{{ php_version }}-dev
+      - php{{ php_version }}-gd
+      - php{{ php_version }}-intl
+      - php{{ php_version }}-mbstring
+      - php{{ php_version }}-mysql
+      - php{{ php_version }}-opcache
+      - php{{ php_version }}-readline
+      - php{{ php_version }}-sqlite3
+      - php{{ php_version }}-xml
+      - php{{ php_version }}-zip
+      - unzip
+    state: present
+
+- name: Install Xdebug for PHP {{ php_version }}
+  ansible.builtin.apt:
+    name: php{{ php_version }}-xdebug
+    state: '{{ "present" if php_debugging else "absent" }}'
+
+- name: Configure PHP {{ php_version }} (CLI)
+  ansible.builtin.copy:
+    src: '{{ "php-debug.ini" if php_debugging else "php-prod.ini" }}'
+    dest: /etc/php/{{ php_version }}/cli/conf.d/99-dave.ini
