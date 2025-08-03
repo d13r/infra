@@ -5,15 +5,20 @@ cd "$(dirname "$0")/.."
 HEADING=$'\e[96;1m' # LCYAN+BOLD
 RESET=$'\e[0m'
 
+# OpenTofu
+echo "${HEADING}Installing OpenTofu...${RESET}"
+curl --proto '=https' --tlsv1.2 -fsSL https://get.opentofu.org/install-opentofu.sh |
+    bash -s -- --install-method deb
+echo
+
 # Ansible
 echo "${HEADING}Installing Ansible...${RESET}"
 sudo apt install ansible
 echo
 
-# OpenTofu
-echo "${HEADING}Installing OpenTofu...${RESET}"
-curl --proto '=https' --tlsv1.2 -fsSL https://get.opentofu.org/install-opentofu.sh |
-    bash -s -- --install-method deb
+# Ansible collections
+echo "${HEADING}Installing Ansible collections...${RESET}"
+(cd ansible && ansible-galaxy install -r requirements.yml)
 
 # Config file
 if [[ ! -f .env ]]; then

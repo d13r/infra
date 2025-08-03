@@ -6,3 +6,4 @@
     - { role: software_fzf, tags: fzf }
     - { role: software_tmux, tags: tmux }
     - { role: site_collector, tags: collector }
+    - { role: site_kuma, tags: kuma }

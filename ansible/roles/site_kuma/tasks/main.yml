@@ -1,0 +1,37 @@
+- name: Clone Uptime Kuma configuration repository
+  ansible.builtin.git:
+    repo: https://github.com/d13r/kuma.git
+    dest: /local/kuma
+    update: false
+  become: true
+  become_user: dave
+
+- name: Start Uptime Kuma
+  community.docker.docker_compose_v2:
+    project_src: /local/kuma
+
+- name: Generate certificate for kuma.djm.me
+  ansible.builtin.shell: |
+    sudo certbot certonly \
+      --non-interactive \
+      --cert-name kuma.djm.me \
+      --domains kuma.djm.me \
+      --dns-cloudflare \
+      --dns-cloudflare-credentials /etc/letsencrypt/cloudflare-credentials.ini \
+      --dns-cloudflare-propagation-seconds 30 \
+      --email d@djm.me \
+      --agree-tos
+  args:
+    creates: /etc/letsencrypt/live/kuma.djm.me
+
+- name: Enable Apache HTTP proxy
+  community.general.apache2_module:
+    name: proxy_http
+    state: present
+  notify: Reload Apache
+
+- name: Configure the kuma.djm.me vhost
+  ansible.builtin.copy:
+    src: kuma-site.conf
+    dest: /etc/apache2/sites-enabled/kuma.conf
+  notify: Reload Apache

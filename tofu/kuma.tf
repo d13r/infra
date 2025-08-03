@@ -2,7 +2,7 @@ resource "cloudflare_dns_record" "kuma_djm_me_CNAME" {
   zone_id = data.cloudflare_zone.djm_me.zone_id
   name    = "kuma.djm.me"
   type    = "CNAME"
-  content = "silver.djm.me"
+  content = "artemis.djm.me"
   ttl     = 1
 }
 

@@ -1,0 +1,9 @@
+dependencies:
+  - role: dir_local
+    tags: local
+
+  - role: software_certbot
+    tags: certbot
+
+  - role: software_docker
+    tags: docker
