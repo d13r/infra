@@ -1,10 +1,13 @@
 - name: Tofu test
   hosts: running
+  gather_facts: false
 
   roles:
     - role: action_load_tofu_outputs
 
   tasks:
+    # Run for each host to demonstrate that loading only happens
+    # once no matter how many hosts there are for other tasks
     - name: Display outputs
       ansible.builtin.debug:
         var: tofu_outputs
