@@ -1,0 +1,5 @@
+- name: Create/resize swap file
+  ansible.builtin.script: |
+    mkswap.sh {{ swap_size | ansible.builtin.human_to_bytes(default_unit="G") }}
+  register: mkswap
+  changed_when: mkswap.stdout != ''
