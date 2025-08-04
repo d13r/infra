@@ -1,0 +1,4 @@
+- name: Configure sudo
+  ansible.builtin.copy:
+    src: sudoers
+    dest: /etc/sudoers.d/dave

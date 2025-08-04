@@ -1,0 +1,5 @@
+# Always set $HOME so Vim writes temp files to /root/.vim/ instead of (e.g.) /home/dave/.vim/
+Defaults always_set_home
+
+# Disable email alerts whenever I get the password wrong
+Defaults !mail_badpass
