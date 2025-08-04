@@ -4,11 +4,9 @@
   delegate_to: 127.0.0.1
   register: tofu_json
   changed_when: false
-  tags: [always]
 
 - name: Parse Tofu outputs JSON into a fact
   ansible.builtin.set_fact:
     tofu_outputs: '{{ tofu_json.stdout | from_json }}'
   run_once: true
   delegate_to: 127.0.0.1
-  tags: [always]
