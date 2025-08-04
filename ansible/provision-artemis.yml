@@ -5,7 +5,6 @@
     - { role: user_dave, tags: dave }
     - { role: action_apt_update, tags: always }
     - { role: software_fail2ban, tags: fail2ban }
-    - { role: software_fzf, tags: fzf }
-    - { role: software_tmux, tags: tmux }
+    - { role: software_utilities, tags: utilities }
     - { role: site_collector, tags: collector }
     - { role: site_kuma, tags: kuma }

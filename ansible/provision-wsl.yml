@@ -4,5 +4,4 @@
 
   roles:
     - { role: action_apt_update, tags: always }
-    - { role: software_fzf, tags: fzf }
-    - { role: software_tmux, tags: tmux }
+    - { role: software_utilities, tags: utilities }
