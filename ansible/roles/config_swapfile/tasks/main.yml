@@ -1,3 +1,5 @@
+# Reasons for adding a swap file:
+# https://chrisdown.name/2018/01/02/in-defence-of-swap.html
 - name: Create/resize swap file
   ansible.builtin.script: |
     mkswap.sh {{ swap_size | ansible.builtin.human_to_bytes(default_unit="G") }}
