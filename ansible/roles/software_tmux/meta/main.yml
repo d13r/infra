@@ -1,2 +1,0 @@
-dependencies:
-  - role: action_apt_update

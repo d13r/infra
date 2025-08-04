@@ -3,6 +3,7 @@
 
   roles:
     - { role: dir_local, tags: local }
-    - { role: software_apache, tags: apache }
+    - { role: action_apt_update, tags: always }
     - { role: software_fzf, tags: fzf }
     - { role: software_tmux, tags: tmux }
+    - { role: software_apache, tags: apache }
