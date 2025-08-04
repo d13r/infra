@@ -4,6 +4,6 @@
   roles:
     - { role: dir_local, tags: local }
     - { role: config_sudo, tags: sudo }
-    - { role: action_apt_update, tags: always }
+    - { role: action_apt_update, tags: apt }
     - { role: software_utilities, tags: utilities }
     - { role: software_apache, tags: apache }
