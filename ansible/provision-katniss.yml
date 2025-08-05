@@ -8,6 +8,9 @@
     - role: config_sudo
       tags: sudo
 
+    - role: config_timezone
+      tags: timezone
+
     - role: action_apt_update
       tags: apt
 

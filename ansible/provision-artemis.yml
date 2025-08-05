@@ -11,6 +11,9 @@
     - role: config_swapfile
       tags: swap
 
+    - role: config_timezone
+      tags: timezone
+
     - role: action_apt_update
       tags: apt
 
