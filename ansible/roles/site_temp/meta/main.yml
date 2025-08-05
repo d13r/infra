@@ -1,0 +1,12 @@
+dependencies:
+  - role: dir_local
+    tags: local
+
+  - role: software_apache
+    tags: apache
+
+  - role: software_certbot
+    tags: certbot
+
+  - role: software_php_fpm
+    tags: [php, 'php{{ php_version }}']

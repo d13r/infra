@@ -1,0 +1,36 @@
+- name: Create temp directories
+  ansible.builtin.file:
+    path: '{{ item }}'
+    state: directory
+    owner: root
+    group: adm
+    mode: g+ws
+    recurse: true
+  loop:
+    - /local/temp
+    - /local/temp/public
+
+- name: Copy phpinfo.php
+  ansible.builtin.copy:
+    src: phpinfo.php
+    dest: /local/temp/public/phpinfo.php
+
+- name: Generate certificate for temp.{{ ansible_hostname }}.djm.me
+  ansible.builtin.shell: |
+    sudo certbot certonly \
+      --non-interactive \
+      --cert-name temp.{{ ansible_hostname }}.djm.me \
+      --domains temp.{{ ansible_hostname }}.djm.me \
+      --dns-cloudflare \
+      --dns-cloudflare-credentials /etc/letsencrypt/cloudflare-credentials.ini \
+      --dns-cloudflare-propagation-seconds 30 \
+      --email d@djm.me \
+      --agree-tos
+  args:
+    creates: /etc/letsencrypt/live/temp.{{ ansible_hostname }}.djm.me
+
+- name: Configure the temp.{{ ansible_hostname }}.djm.me vhost
+  ansible.builtin.template:
+    src: temp-site.conf.j2
+    dest: /etc/apache2/sites-enabled/temp.conf
+  notify: Reload Apache

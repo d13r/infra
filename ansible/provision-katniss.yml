@@ -2,8 +2,19 @@
   hosts: katniss
 
   roles:
-    - { role: dir_local, tags: local }
-    - { role: config_sudo, tags: sudo }
-    - { role: action_apt_update, tags: apt }
-    - { role: software_utilities, tags: utilities }
-    - { role: software_apache, tags: apache }
+    - role: dir_local
+      tags: local
+
+    - role: config_sudo
+      tags: sudo
+
+    - role: action_apt_update
+      tags: apt
+
+    - role: software_utilities
+      tags: utilities
+
+    - role: site_temp
+      vars:
+        php_version: 8.4
+      tags: temp

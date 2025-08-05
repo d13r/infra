@@ -2,11 +2,26 @@
   hosts: artemis
 
   roles:
-    - { role: user_dave, tags: dave }
-    - { role: config_sudo, tags: sudo }
-    - { role: config_swapfile, tags: swap }
-    - { role: action_apt_update, tags: apt }
-    - { role: software_fail2ban, tags: fail2ban }
-    - { role: software_utilities, tags: utilities }
-    - { role: site_collector, tags: collector }
-    - { role: site_kuma, tags: kuma }
+    - role: user_dave
+      tags: dave
+
+    - role: config_sudo
+      tags: sudo
+
+    - role: config_swapfile
+      tags: swap
+
+    - role: action_apt_update
+      tags: apt
+
+    - role: software_fail2ban
+      tags: fail2ban
+
+    - role: software_utilities
+      tags: utilities
+
+    - role: site_collector
+      tags: collector
+
+    - role: site_kuma
+      tags: kuma

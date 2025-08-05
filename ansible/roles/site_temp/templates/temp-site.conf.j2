@@ -1,0 +1,22 @@
+<VirtualHost *:443>
+
+    ServerName temp.{{ ansible_hostname }}.djm.me
+
+    SSLEngine On
+    SSLCertificateFile /etc/letsencrypt/live/temp.{{ ansible_hostname }}.djm.me/fullchain.pem
+    SSLCertificateKeyFile /etc/letsencrypt/live/temp.{{ ansible_hostname }}.djm.me/privkey.pem
+    Header always set Strict-Transport-Security "max-age=63072000"
+
+    DocumentRoot /local/temp/public
+
+    <Directory /local/temp/public>
+        AllowOverride All
+        Require all granted
+        Options +Indexes
+    </Directory>
+
+    <FilesMatch ".+\.ph(?:ar|p|tml)$">
+        SetHandler "proxy:unix:/run/php/php{{ php_version }}-fpm.sock|fcgi://localhost"
+    </FilesMatch>
+
+</VirtualHost>
