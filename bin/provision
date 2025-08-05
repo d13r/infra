@@ -9,16 +9,24 @@ if [[ $host = '' || $host = '--help' || $host = '-h' ]]; then
     exit
 fi
 
+shift
+
 if [[ ! -f "provision-$host.yml" ]]; then
     echo "Host not recognised (check that ansible/provision-$host.yml exists)" 2>&1
     exit 1
 fi
 
-args=''
+args=()
 if [[ $host = 'wsl' ]]; then
-    args='--ask-become-pass'
+    if [[ -f ../.env ]]; then
+        source ../.env
+    fi
+    if [[ -n ${WSL_SUDO_PASSWORD-} ]]; then
+        export WSL_SUDO_PASSWORD
+        args+=(-e ansible_become_password="{{ lookup('env', 'WSL_SUDO_PASSWORD') }}")
+    else
+        args+=(--ask-become-pass)
+    fi
 fi
 
-shift
-
-exec ../bin/ansible-playbook $args "provision-$host.yml" "$@"
+exec ../bin/ansible-playbook "${args[@]}" "provision-$host.yml" "$@"
