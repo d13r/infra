@@ -1,4 +1,4 @@
-- name: Provision Artemis
+- name: Provision Artemis (Hetzner VM)
   hosts: artemis
 
   roles:

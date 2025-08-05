@@ -1,4 +1,4 @@
-- name: Provision Katniss
+- name: Provision Katniss (laptop development VM)
   hosts: katniss
 
   roles:
