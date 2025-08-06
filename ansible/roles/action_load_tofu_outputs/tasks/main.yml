@@ -1,6 +1,7 @@
 - name: Fetch Tofu outputs
   ansible.builtin.command: ../bin/tofu output -json
   run_once: true
+  check_mode: false
   delegate_to: 127.0.0.1
   register: tofu_json
   changed_when: false
@@ -9,4 +10,5 @@
   ansible.builtin.set_fact:
     tofu_outputs: '{{ tofu_json.stdout | from_json }}'
   run_once: true
+  check_mode: false
   delegate_to: 127.0.0.1
