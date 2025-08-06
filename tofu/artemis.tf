@@ -91,13 +91,3 @@ output "artemis_cloudflare_certbot_token" {
   value     = cloudflare_api_token.artemis_certbot.value
   sensitive = true
 }
-
-# User password for Ansible
-resource "random_password" "artemis_dave_password" {
-  length = 20
-}
-
-output "artemis_dave_password" {
-  value     = random_password.artemis_dave_password.result
-  sensitive = true
-}

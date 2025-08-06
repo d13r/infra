@@ -4,4 +4,4 @@ cd "$(dirname "$0")/../ansible"
 
 export ANSIBLE_VAULT_PASSWORD_FILE='../libexec/vault-password'
 
-exec ansible-playbook -i inventory.ini "$@"
+exec ansible-vault "$@"

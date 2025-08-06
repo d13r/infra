@@ -2,4 +2,6 @@
 set -euo pipefail
 cd "$(dirname "$0")/../ansible"
 
-exec ansible -i inventory.ini "$@"
+export ANSIBLE_VAULT_PASSWORD_FILE='../libexec/vault-password'
+
+exec ansible -i inventory/main.ini "$@"

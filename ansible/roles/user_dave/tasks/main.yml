@@ -1,7 +1,7 @@
 - name: Create dave user
   ansible.builtin.user:
     name: dave
-    password: '{{ tofu_outputs[ansible_hostname + "_dave_password"].value | password_hash("sha512", 65534 | random(seed=inventory_hostname) | string) }}'
+    password: '{{ user_dave_password | password_hash("sha512", 65534 | random(seed=inventory_hostname) | string) }}'
     comment: Dave James Miller
     groups: [adm, sudo, www-data]
     append: true
