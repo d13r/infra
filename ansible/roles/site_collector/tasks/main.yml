@@ -13,7 +13,7 @@
     group: www-data
     mode: '0660'
   vars:
-    password_hash: '{{ tofu_outputs.collector_dave_password.value }}'
+    password_hash: '{{ collector_password_hash }}'
 
 - name: Install Collector dependencies
   ansible.builtin.command: composer install --no-interaction --no-dev
