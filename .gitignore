@@ -3,3 +3,4 @@
 /tofu/*.tfstate
 /tofu/*.tfstate.backup
 /tofu/.terraform/
+__pycache__/

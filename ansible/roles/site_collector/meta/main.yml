@@ -1,20 +1,12 @@
 dependencies:
   - role: dir_local
-    tags: local
-
   - role: software_apache
-    tags: apache
-
   - role: software_certbot
-    tags: certbot
 
   - role: software_php_fpm
     vars:
       php_version: 8.4
-    tags: [php, php8.4]
+    tags: php8.4
 
   - role: software_composer
-    tags: [composer]
-
   - role: software_postfix
-    tags: [postfix]
