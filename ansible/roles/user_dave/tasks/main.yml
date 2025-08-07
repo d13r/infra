@@ -1,7 +1,7 @@
 - name: Create dave user
   ansible.builtin.user:
     name: dave
-    password: '{{ user_dave_password | ansible.builtin.password_hash("sha512", 65534 | random(seed=inventory_hostname) | string) }}'
+    password: '{{ user_dave_password | string | ansible.builtin.password_hash("sha512", 65534 | random(seed=inventory_hostname) | string) }}'
     comment: Dave James Miller
     groups: [adm, sudo, www-data]
     append: true

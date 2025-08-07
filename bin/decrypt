@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+if [[ $# -lt 1 ]]; then
+    echo "Usage: ${BIN_COMMAND-$0} FILENAME [VARNAME]"
+    exit
+fi
+
+filename=$1
+varname=${2:-vars}
+
+exec "$(dirname "$0")/ansible" localhost -e "@$filename" -m debug -a "var=$varname"

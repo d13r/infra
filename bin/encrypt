@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+set -euo pipefail
+cd "$(dirname "$0")"
+
+read -rp 'Secret to encrypt: ' SECRET
+
+echo -n "$SECRET" |
+    ./ansible-vault encrypt_string --name key_name |
+    sed 's/!vault/\n\0/; s/^[\t ]\+/  /'
