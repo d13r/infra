@@ -2,6 +2,6 @@
 set -euo pipefail
 cd "$(dirname "$0")/../ansible"
 
-export ANSIBLE_VAULT_PASSWORD_FILE='../libexec/vault-password'
+export ANSIBLE_VAULT_PASSWORD_FILE='../lib/vault-password.sh'
 
 exec ansible-vault "$@"

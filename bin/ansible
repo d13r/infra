@@ -2,6 +2,6 @@
 set -euo pipefail
 
 export ANSIBLE_VAULT_PASSWORD_FILE
-ANSIBLE_VAULT_PASSWORD_FILE="$(dirname "$0")/../libexec/vault-password"
+ANSIBLE_VAULT_PASSWORD_FILE="$(dirname "$0")/../lib/vault-password.sh"
 
 exec ansible -i "$(dirname "$0")/../ansible/inventory.ini" "$@"
