@@ -1,5 +1,6 @@
 /.env
 /.idea/
+/ansible/.fact-cache/
 /tofu/*.tfstate
 /tofu/*.tfstate.backup
 /tofu/.terraform/
