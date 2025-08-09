@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+set -euo pipefail
+cd "$(dirname "$0")/../hyper-v"
+
+exec powershell.exe  -ExecutionPolicy Bypass "./${HOSTNAME,,}.ps1"
