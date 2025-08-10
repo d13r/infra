@@ -8,6 +8,7 @@
       - curl
       - file
       - fzf
+      - git-delta
       - htop
       - httpie
       - net-tools # netstat
