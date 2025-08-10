@@ -5,4 +5,5 @@
   roles:
     - role: config_sudo
     - role: action_apt_update
+    - role: software_lazygit
     - role: software_utilities
