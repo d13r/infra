@@ -6,6 +6,7 @@
     - role: config_sudo
     - role: config_swapfile
     - role: config_timezone
+    - role: config_unattended_upgrades
     - role: action_apt_update
     - role: software_fail2ban
     - role: software_utilities

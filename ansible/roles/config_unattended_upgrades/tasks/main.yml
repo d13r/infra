@@ -1,0 +1,16 @@
+- name: Preconfigure the Unattended-Upgrades package
+  ansible.builtin.debconf:
+    name: unattended-upgrades
+    question: enable_auto_updates
+    vtype: boolean
+    value: true
+
+- name: Install Unattended-Upgrades
+  ansible.builtin.apt:
+    name: unattended-upgrades
+    state: present
+
+- name: Configure Unattended-Upgrades
+  ansible.builtin.copy:
+    src: unattended-upgrades-local
+    dest: /etc/apt/apt.conf.d/52unattended-upgrades-local
