@@ -1,26 +1,12 @@
-$ErrorActionPreference = "Inquire" # So I can see the error message
-
-# Run as administrator
-if (-not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")) {
-    Start-Process powershell "-ExecutionPolicy Bypass -File `"$PSCommandPath`"" -Verb RunAs
-    Exit
-}
-
-# Make sure Hyper-V is enabled
-$feature = Get-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V-All -ErrorAction SilentlyContinue
-if (-not ($feature.State -eq "Enabled")) {
-    Write-Host "Enabling Hyper-V..."
-    Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V -All
-    Exit
-}
-
-# Configure host
-if (-not (Get-VMSwitch -Name "Hyper-V Internal Network" -ErrorAction SilentlyContinue)) {
+# Virtual switch
+if (-Not (Get-VMSwitch -Name "Hyper-V Internal Network" -ErrorAction SilentlyContinue))
+{
     Write-Host "Creating virtual switch..."
     New-VMSwitch -Name "Hyper-V Internal Network" -SwitchType Internal
 }
 
-if (-not (Get-NetIPAddress -InterfaceAlias "vEthernet (Hyper-V Internal Network)" -IPAddress 192.168.5.1 -ErrorAction SilentlyContinue)) {
+if (-Not (Get-NetIPAddress -InterfaceAlias "vEthernet (Hyper-V Internal Network)" -IPAddress 192.168.5.1 -ErrorAction SilentlyContinue))
+{
     Write-Host "Assigning host IP address..."
     New-NetIPAddress `
         -InterfaceAlias "vEthernet (Hyper-V Internal Network)" `
@@ -30,11 +16,12 @@ if (-not (Get-NetIPAddress -InterfaceAlias "vEthernet (Hyper-V Internal Network)
 
 $Dropbox = Get-Content "$ENV:LOCALAPPDATA\Dropbox\info.json" | ConvertFrom-Json | % 'personal' | % 'path'
 
-# Katniss
+# Katniss VM
 #Get-VMHardDiskDrive -VMName katniss.djm.me -ErrorAction SilentlyContinue | Remove-Item -ErrorAction SilentlyContinue
 #Remove-VM -Name katniss.djm.me -Force -ErrorAction SilentlyContinue
 
-if (-not (Get-VM katniss.djm.me -ErrorAction SilentlyContinue)) {
+if (-Not (Get-VM katniss.djm.me -ErrorAction SilentlyContinue))
+{
     Write-Host "Creating katniss.djm.me..."
 
     New-VM `
@@ -70,7 +57,3 @@ if (-not (Get-VM katniss.djm.me -ErrorAction SilentlyContinue)) {
         -BootOrder (@($DVD) + $BootOrder) `
         -SecureBootTemplate MicrosoftUEFICertificateAuthority
 }
-
-# Done
-Write-Host "Done."
-Pause

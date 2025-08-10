@@ -2,4 +2,8 @@
 set -euo pipefail
 cd "$(dirname "$0")/../hyper-v"
 
-exec powershell.exe  -ExecutionPolicy Bypass "./${HOSTNAME,,}.ps1"
+script=$(wslpath -aw setup.ps1)
+
+exec powershell.exe -Command - <<END
+Start-Process powershell -ArgumentList '-ExecutionPolicy Bypass -File "$script"' -Verb RunAs
+END
