@@ -4,6 +4,8 @@
 
   roles:
     - role: config_sudo
+    - role: config_wsl_symlinks
+      become: false
     - role: action_apt_update
     - role: software_lazygit
     - role: software_utilities
