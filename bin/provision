@@ -10,7 +10,12 @@ if [[ $host = '--help' || $host = '-h' ]]; then
 fi
 
 if [[ -z $host ]]; then
+    # Current host (lowercased)
     host=${HOSTNAME,,}
+else
+    # Canonicalise the hostname to allow aliases/shortcuts
+    host=$(ssh -G "$host" | awk '$1 == "hostname" {print $2; exit}')
+    host=${host/.*}
 fi
 
 shift || true
