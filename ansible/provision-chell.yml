@@ -1,5 +1,5 @@
-- name: Provision WSL
-  hosts: wsl
+- name: Provision Chell (WSL)
+  hosts: chell
   become: true
 
   roles:
