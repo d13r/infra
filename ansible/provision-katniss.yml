@@ -3,6 +3,7 @@
 
   roles:
     - role: dir_local
+    - role: config_hostname
     - role: config_sudo
     - role: config_timezone
     - role: config_unattended_upgrades

@@ -3,6 +3,7 @@
 
   roles:
     - role: user_dave
+    - role: config_hostname
     - role: config_sudo
     - role: config_swapfile
     - role: config_timezone
