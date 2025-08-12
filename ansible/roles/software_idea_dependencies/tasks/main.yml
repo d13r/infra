@@ -1,0 +1,11 @@
+- name: Install IDEA dependencies & tools
+  ansible.builtin.apt:
+    name:
+      - chromium-browser # For activation
+      - default-jre
+      - fonts-firacode
+      - libgbm-dev
+      - libgdm-dev
+      - openjfx
+      - snapd
+    state: present

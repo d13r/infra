@@ -1,0 +1,3 @@
+dependencies:
+  - role: software_golang
+  - role: software_idea_dependencies

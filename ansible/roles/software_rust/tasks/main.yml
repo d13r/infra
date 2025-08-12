@@ -1,0 +1,4 @@
+- name: Install rustup
+  ansible.builtin.apt:
+    name: rustup
+    state: present

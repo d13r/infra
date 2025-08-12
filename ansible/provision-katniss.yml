@@ -8,6 +8,7 @@
     - role: config_unattended_upgrades
     - role: action_apt_update
     - role: software_lazygit
+    - role: software_phpstorm
     - role: software_utilities
 
     - role: site_temp

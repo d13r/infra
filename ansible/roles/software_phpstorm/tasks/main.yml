@@ -1,0 +1,5 @@
+- name: Install PhpStorm
+  community.general.snap:
+    name: phpstorm
+    classic: true
+    state: present
