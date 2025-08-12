@@ -8,5 +8,4 @@ dependencies:
       php_version: 8.4
     tags: php8.4
 
-  - role: software_composer
   - role: software_postfix

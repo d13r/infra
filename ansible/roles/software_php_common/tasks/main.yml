@@ -1,0 +1,26 @@
+- name: Add PHP PPA repository
+  ansible.builtin.apt_repository:
+    repo: ppa:ondrej/php
+    state: present
+
+- name: Install unzip (for Composer)
+  ansible.builtin.apt:
+    name: unzip
+    state: present
+
+- name: Install Composer
+  ansible.builtin.get_url:
+    url: https://github.com/composer/composer/releases/latest/download/composer.phar
+    dest: /usr/local/bin/composer
+    mode: '0755'
+
+- name: Install a cron job to automatically upgrade Composer daily
+  ansible.builtin.copy:
+    src: upgrade-composer.sh
+    dest: /etc/cron.daily/upgrade-composer
+
+- name: Install PsySH
+  ansible.builtin.get_url:
+    url: https://psysh.org/psysh
+    dest: /usr/local/bin/psysh
+    mode: '0755'
