@@ -11,7 +11,7 @@
     - role: software_lazygit
     - role: software_phpstorm
     - role: software_utilities
-
+    - role: site_collector
     - role: site_temp
       vars:
         php_version: 8.4
