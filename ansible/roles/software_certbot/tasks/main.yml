@@ -16,11 +16,8 @@
 - name: Create Certbot renewal hooks directory
   ansible.builtin.file:
     # This isn't created until the first certificate has been issued
-    path: '{{ item }}'
+    path: /etc/letsencrypt/renewal-hooks/deploy
     state: directory
-  loop:
-    - /etc/letsencrypt/renewal-hooks
-    - /etc/letsencrypt/renewal-hooks/deploy
 
 - name: Create renewal script
   ansible.builtin.copy:
