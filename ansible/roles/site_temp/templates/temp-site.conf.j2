@@ -1,10 +1,8 @@
 <VirtualHost *:443>
 
-    ServerName temp.{{ ansible_hostname }}.djm.me
+    ServerName temp.{{ base_hostname }}
 
     SSLEngine On
-    SSLCertificateFile /etc/letsencrypt/live/temp.{{ ansible_hostname }}.djm.me/fullchain.pem
-    SSLCertificateKeyFile /etc/letsencrypt/live/temp.{{ ansible_hostname }}.djm.me/privkey.pem
     Header always set Strict-Transport-Security "max-age=63072000"
 
     DocumentRoot /local/temp/public

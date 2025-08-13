@@ -13,6 +13,20 @@
   vars:
     token: '{{ tofu_outputs[ansible_hostname + "_cloudflare_certbot_token"].value }}'
 
+- name: Generate default certificate
+  ansible.builtin.shell: |
+    sudo certbot certonly \
+      --non-interactive \
+      --cert-name default \
+      --domains '{{ certbot_default_domains | join(',') }}' \
+      --dns-cloudflare \
+      --dns-cloudflare-credentials /etc/letsencrypt/cloudflare-credentials.ini \
+      --dns-cloudflare-propagation-seconds 30 \
+      --email d@djm.me \
+      --agree-tos
+  args:
+    creates: /etc/letsencrypt/live/default
+
 - name: Create Certbot renewal hooks directory
   ansible.builtin.file:
     # This isn't created until the first certificate has been issued

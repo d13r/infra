@@ -1,7 +1,6 @@
 dependencies:
   - role: dir_local
   - role: software_apache
-  - role: software_certbot
 
   - role: software_php_fpm
     vars:

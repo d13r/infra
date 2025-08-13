@@ -1,0 +1,3 @@
+certbot_default_domains:
+  - '{{ base_hostname }}'
+  - '*.{{ base_hostname }}'

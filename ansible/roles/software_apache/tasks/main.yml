@@ -25,8 +25,8 @@
   notify: Reload Apache
 
 - name: Configure Apache
-  ansible.builtin.copy:
-    src: common.conf
+  ansible.builtin.template:
+    src: common.conf.j2
     dest: /etc/apache2/conf-enabled/z_common.conf
   notify: Reload Apache
 

@@ -1,10 +1,8 @@
 <VirtualHost *:443>
 
-    ServerName kuma.djm.me
+    ServerName kuma.{{ base_hostname }}
 
     SSLEngine On
-    SSLCertificateFile /etc/letsencrypt/live/kuma.djm.me/fullchain.pem
-    SSLCertificateKeyFile /etc/letsencrypt/live/kuma.djm.me/privkey.pem
     Header always set Strict-Transport-Security "max-age=63072000"
 
     ProxyPass / http://127.0.0.1:3001/

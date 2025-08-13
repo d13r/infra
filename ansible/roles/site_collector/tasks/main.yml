@@ -23,22 +23,8 @@
   become: true
   become_user: dave
 
-- name: Generate certificate for c.djm.me
-  ansible.builtin.shell: |
-    sudo certbot certonly \
-      --non-interactive \
-      --cert-name c.djm.me \
-      --domains c.djm.me \
-      --dns-cloudflare \
-      --dns-cloudflare-credentials /etc/letsencrypt/cloudflare-credentials.ini \
-      --dns-cloudflare-propagation-seconds 30 \
-      --email d@djm.me \
-      --agree-tos
-  args:
-    creates: /etc/letsencrypt/live/c.djm.me
-
-- name: Configure the c.djm.me vhost
-  ansible.builtin.copy:
-    src: collector-site.conf
+- name: Configure the c.{{ base_hostname }} vhost
+  ansible.builtin.template:
+    src: collector-site.conf.j2
     dest: /etc/apache2/sites-enabled/collector.conf
   notify: Reload Apache
