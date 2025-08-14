@@ -2,27 +2,33 @@
 set -euo pipefail
 cd "$(dirname "$0")/../ansible"
 
-host=${1-}
+hosts=${1-}
+shift || true
 
-if [[ $host = '--help' || $host = '-h' ]]; then
+if [[ $hosts = '--help' || $hosts = '-h' ]]; then
     echo "Usage: ${BIN_COMMAND-$0} HOST [ANSIBLE OPTIONS]"
     exit
 fi
 
-if [[ -z $host ]]; then
+if [[ -z $hosts ]]; then
     # Current host (lowercased)
-    host=${HOSTNAME,,}
-else
+    hosts=${HOSTNAME,,}
+fi
+
+playbooks=()
+
+IFS=','
+for host in $hosts; do
     # Canonicalise the hostname to allow aliases/shortcuts
     host=$(ssh -G "$host" | awk '$1 == "hostname" {print $2; exit}')
     host=${host/.*}
-fi
 
-shift || true
+    if [[ ! -f "provision-$host.yml" ]]; then
+        echo "Host '$host' not recognised (check that ansible/provision-$host.yml exists)" 2>&1
+        exit 1
+    fi
 
-if [[ ! -f "provision-$host.yml" ]]; then
-    echo "Host not recognised (check that ansible/provision-$host.yml exists)" 2>&1
-    exit 1
-fi
+    playbooks+=("provision-$host.yml")
+done
 
-exec ../bin/ansible-playbook "provision-$host.yml" "$@"
+exec ../bin/ansible-playbook "${playbooks[@]}" "$@"
