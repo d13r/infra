@@ -1,6 +1,4 @@
 dependencies:
   - role: dir_local
   - role: software_apache
-
   - role: software_php_fpm
-    tags: 'php{{ php_version }}'
