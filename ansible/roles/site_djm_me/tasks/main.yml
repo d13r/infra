@@ -1,0 +1,13 @@
+- name: Clone DJM.me repository
+  ansible.builtin.git:
+    repo: https://github.com/d13r/djm.me.git
+    dest: /local/djm.me
+    update: false
+  become: true
+  become_user: dave
+
+- name: Configure the {{ base_hostname }} vhost
+  ansible.builtin.template:
+    src: djm.me-site.conf.j2
+    dest: /etc/apache2/sites-enabled/djm.me.conf
+  notify: Reload Apache

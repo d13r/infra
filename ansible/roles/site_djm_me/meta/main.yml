@@ -1,0 +1,3 @@
+dependencies:
+  - role: dir_local
+  - role: software_apache

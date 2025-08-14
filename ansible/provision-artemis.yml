@@ -13,4 +13,5 @@
     - role: software_lazygit
     - role: software_utilities
     - role: site_collector
+    - role: site_djm_me
     - role: site_kuma

@@ -1,0 +1,26 @@
+<VirtualHost *:443>
+
+    ServerName {{ base_hostname }}
+
+    SSLEngine On
+    Header always set Strict-Transport-Security "max-age=63072000"
+
+    DocumentRoot /local/djm.me/public
+
+    <Directory /local/djm.me/public>
+        AllowOverride All
+        Require all granted
+    </Directory>
+
+</VirtualHost>
+
+<VirtualHost *:443>
+
+    ServerName www.{{ base_hostname }}
+
+    SSLEngine On
+    Header always set Strict-Transport-Security "max-age=63072000"
+
+    RedirectPermanent / https://{{ base_hostname }}/
+
+</VirtualHost>
