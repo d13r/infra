@@ -19,3 +19,10 @@
     name: software_dotfiles
   become: true
   become_user: dave
+
+- name: Create ~/.marks directory
+  ansible.builtin.file:
+    path: ~dave/.marks
+    state: directory
+    owner: dave
+    group: dave

@@ -1,4 +1,5 @@
 dependencies:
+  - role: user_dave
   - role: dir_local
   - role: software_apache
   - role: software_php_fpm

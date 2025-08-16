@@ -1,0 +1,5 @@
+- name: Add '{{ name }}' mark
+  ansible.builtin.file:
+    path: '~dave/.marks/{{ name }}'
+    state: link
+    src: '{{ target }}'

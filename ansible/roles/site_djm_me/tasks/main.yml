@@ -11,3 +11,9 @@
     src: djm.me-site.conf.j2
     dest: /etc/apache2/sites-enabled/djm.me.conf
   notify: Reload Apache
+
+- ansible.builtin.import_role:
+    name: helper_mark
+  vars:
+    name: djm
+    target: /local/djm.me
