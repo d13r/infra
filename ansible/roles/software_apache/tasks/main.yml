@@ -5,12 +5,10 @@
       - apache2-utils
       - elinks # For 'apache2ctl status'
       - ssl-cert
-    state: present
 
 - name: Enable Apache modules
   community.general.apache2_module:
     name: '{{ item }}'
-    state: present
   loop:
     - headers
     - http2

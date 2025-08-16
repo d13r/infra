@@ -13,7 +13,6 @@
 - name: Enable Apache HTTP proxy
   community.general.apache2_module:
     name: proxy_http
-    state: present
   notify: Reload Apache
 
 - name: Configure the kuma.{{ base_hostname }} vhost

@@ -4,7 +4,6 @@
       - postfix
       - mailutils
       - mutt
-    state: present
 
 - name: Configure SMTP relay password
   ansible.builtin.copy:

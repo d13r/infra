@@ -2,4 +2,3 @@
   community.general.snap:
     name: goland
     classic: true
-    state: present

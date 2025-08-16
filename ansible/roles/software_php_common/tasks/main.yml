@@ -1,12 +1,10 @@
 - name: Add PHP PPA repository
   ansible.builtin.apt_repository:
     repo: ppa:ondrej/php
-    state: present
 
 - name: Install unzip (for Composer)
   ansible.builtin.apt:
     name: unzip
-    state: present
 
 - name: Install Composer
   ansible.builtin.get_url:

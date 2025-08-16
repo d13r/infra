@@ -2,7 +2,6 @@
 # - name: Install Lazygit
 #   ansible.builtin.apt:
 #     name: lazygit
-#     state: present
 
 - name: Install Lazygit
   ansible.builtin.shell: |

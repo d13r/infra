@@ -8,4 +8,3 @@
       - libgdm-dev
       - openjfx
       - snapd
-    state: present

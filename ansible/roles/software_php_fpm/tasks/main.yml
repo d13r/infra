@@ -1,13 +1,11 @@
 - name: Install PHP-FPM {{ php_version }}
   ansible.builtin.apt:
     name: php{{ php_version }}-fpm
-    state: present
 
 # Not enabling the phpX-fpm config because it's best for each site to configure it explicitly
 - name: Enable Apache FCGI proxy
   community.general.apache2_module:
     name: proxy_fcgi
-    state: present
   notify: Reload Apache
 
 - name: Configure PHP {{ php_version }} (FPM)

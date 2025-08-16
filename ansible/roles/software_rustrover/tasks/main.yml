@@ -2,4 +2,3 @@
   community.general.snap:
     name: rustrover
     classic: true
-    state: present

@@ -8,7 +8,6 @@
 - name: Install Unattended-Upgrades
   ansible.builtin.apt:
     name: unattended-upgrades
-    state: present
 
 - name: Configure Unattended-Upgrades
   ansible.builtin.copy:

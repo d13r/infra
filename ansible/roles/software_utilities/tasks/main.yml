@@ -19,4 +19,3 @@
       - wget
       - whois
       - vim
-    state: present
