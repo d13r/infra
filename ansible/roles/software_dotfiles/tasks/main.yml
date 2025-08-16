@@ -1,0 +1,10 @@
+- name: Check for ~/.git
+  ansible.builtin.stat:
+    path: ~/.git
+  register: dotfiles_git
+
+- name: Automatically install dotfiles on first run
+  ansible.builtin.copy:
+    dest: ~/.bashrc
+    content: "[[ $- = *i* && ! -d ~/.git ]] && cd && wget https://djm.me/cfg && . cfg\n"
+  when: not dotfiles_git.stat.exists

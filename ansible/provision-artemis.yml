@@ -2,6 +2,7 @@
   hosts: artemis
 
   roles:
+    - role: user_root
     - role: user_dave
     - role: config_hostname
     - role: config_sudo

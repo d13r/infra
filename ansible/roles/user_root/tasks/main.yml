@@ -1,0 +1,10 @@
+- name: Copy SSH key
+  ansible.posix.authorized_key:
+    user: root
+    state: present
+    key: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGRzRUvx7ESGxsXrmNKgVY+pg8uc1ZHxzqVoMVznlzWF d@djm.me
+    exclusive: true
+
+- ansible.builtin.import_role:
+    name: software_dotfiles
+  become: false

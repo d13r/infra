@@ -2,6 +2,8 @@
   hosts: katniss
 
   roles:
+    - role: user_root
+    - role: user_dave
     - role: dir_local
     - role: config_hostname
     - role: config_sudo
