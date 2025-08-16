@@ -13,6 +13,7 @@
     - role: software_phpstorm
     - role: software_postfix
     - role: software_utilities
+    - role: project_bin_cli
     - role: project_collector
     - role: project_djm_me
     - role: project_temp
