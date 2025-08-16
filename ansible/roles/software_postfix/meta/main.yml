@@ -1,4 +1,5 @@
 dependencies:
+  - role: action_load_tofu_outputs
   # Need to set the hostname to the FQDN for outgoing emails to be sent correctly
   # https://askubuntu.com/a/1418694/29806
   - role: config_hostname
