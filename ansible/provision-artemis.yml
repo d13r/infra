@@ -12,6 +12,7 @@
     - role: action_apt_update
     - role: software_fail2ban
     - role: software_lazygit
+    - role: software_postfix
     - role: software_utilities
     - role: site_collector
     - role: site_djm_me
