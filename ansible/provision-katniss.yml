@@ -13,8 +13,8 @@
     - role: software_phpstorm
     - role: software_postfix
     - role: software_utilities
-    - role: site_collector
-    - role: site_djm_me
-    - role: site_temp
+    - role: project_collector
+    - role: project_djm_me
+    - role: project_temp
       vars:
         php_version: 8.4

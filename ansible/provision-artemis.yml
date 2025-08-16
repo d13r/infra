@@ -14,6 +14,6 @@
     - role: software_lazygit
     - role: software_postfix
     - role: software_utilities
-    - role: site_collector
-    - role: site_djm_me
-    - role: site_kuma
+    - role: project_collector
+    - role: project_djm_me
+    - role: project_kuma
