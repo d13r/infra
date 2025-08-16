@@ -1,14 +1,10 @@
 - name: Create temp directories
   ansible.builtin.file:
-    path: '{{ item }}'
+    path: /local/temp/public
     state: directory
     owner: root
     group: adm
     mode: g+ws
-    recurse: true
-  loop:
-    - /local/temp
-    - /local/temp/public
 
 - name: Copy phpinfo.php
   ansible.builtin.copy:
