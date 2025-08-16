@@ -4,12 +4,12 @@
   roles:
     - role: user_root
     - role: user_dave
+    - role: action_apt_update
     - role: config_hostname
     - role: config_sudo
     - role: config_swapfile
     - role: config_timezone
     - role: config_unattended_upgrades
-    - role: action_apt_update
     - role: software_fail2ban
     - role: software_lazygit
     - role: software_postfix
