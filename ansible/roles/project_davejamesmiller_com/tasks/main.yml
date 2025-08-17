@@ -1,0 +1,19 @@
+- name: Generate certificate for davejamesmiller.com
+  ansible.builtin.shell: |
+    sudo certbot certonly \
+      --non-interactive \
+      --domain davejamesmiller.com \
+      --domain www.davejamesmiller.com \
+      --dns-cloudflare \
+      --dns-cloudflare-credentials /etc/letsencrypt/cloudflare-credentials.ini \
+      --dns-cloudflare-propagation-seconds 30 \
+      --email d@djm.me \
+      --agree-tos
+  args:
+    creates: /etc/letsencrypt/live/davejamesmiller.com
+
+- name: Configure the davejamesmiller.com vhost
+  ansible.builtin.template:
+    src: davejamesmiller.com-site.conf.j2
+    dest: /etc/apache2/sites-enabled/davejamesmiller.com.conf
+  notify: Reload Apache

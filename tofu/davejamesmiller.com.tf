@@ -4,6 +4,22 @@ data "cloudflare_zone" "davejamesmiller_com" {
   }
 }
 
+resource "cloudflare_dns_record" "davejamesmiller_com_CNAME" {
+    zone_id = data.cloudflare_zone.davejamesmiller_com.zone_id
+    name    = "davejamesmiller.com"
+    type    = "CNAME"
+    content = "artemis.djm.me"
+    ttl     = 1
+}
+
+resource "cloudflare_dns_record" "www_davejamesmiller_com_CNAME" {
+    zone_id = data.cloudflare_zone.davejamesmiller_com.zone_id
+    name    = "www.davejamesmiller.com"
+    type    = "CNAME"
+    content = "artemis.djm.me"
+    ttl     = 1
+}
+
 resource "cloudflare_dns_record" "davejamesmiller_com_TXT_spf1" {
   zone_id = data.cloudflare_zone.davejamesmiller_com.zone_id
   name    = "davejamesmiller.com"

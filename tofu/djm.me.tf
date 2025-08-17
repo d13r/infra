@@ -4,6 +4,22 @@ data "cloudflare_zone" "djm_me" {
   }
 }
 
+resource "cloudflare_dns_record" "djm_me_CNAME" {
+    zone_id = data.cloudflare_zone.djm_me.zone_id
+    name    = "djm.me"
+    type    = "CNAME"
+    content = "artemis.djm.me"
+    ttl     = 1
+}
+
+resource "cloudflare_dns_record" "www_djm_me_CNAME" {
+    zone_id = data.cloudflare_zone.djm_me.zone_id
+    name    = "www.djm.me"
+    type    = "CNAME"
+    content = "artemis.djm.me"
+    ttl     = 1
+}
+
 resource "cloudflare_dns_record" "djm_me_TXT_spf1" {
   zone_id = data.cloudflare_zone.djm_me.zone_id
   name    = "djm.me"

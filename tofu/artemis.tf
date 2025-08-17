@@ -76,6 +76,7 @@ resource "cloudflare_api_token" "artemis_certbot" {
         { id = data.cloudflare_account_api_token_permission_groups_list.zone_write.result[0].id }
       ]
       resources = {
+        "com.cloudflare.api.account.zone.${data.cloudflare_zone.davejamesmiller_com.zone_id}" = "*"
         "com.cloudflare.api.account.zone.${data.cloudflare_zone.djm_me.zone_id}" = "*"
       }
     }

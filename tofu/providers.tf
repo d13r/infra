@@ -16,10 +16,5 @@ terraform {
       version = "1.51.0"
     }
 
-    netlify = {
-      source  = "netlify/netlify"
-      version = "0.2.2"
-    }
-
   }
 }

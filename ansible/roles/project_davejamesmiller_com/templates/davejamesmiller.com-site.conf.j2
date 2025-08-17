@@ -1,0 +1,13 @@
+<VirtualHost *:443>
+
+    ServerName davejamesmiller.com
+    ServerAlias www.davejamesmiller.com
+
+    SSLEngine On
+    SSLCertificateFile /etc/letsencrypt/live/davejamesmiller.com/fullchain.pem
+    SSLCertificateKeyFile /etc/letsencrypt/live/davejamesmiller.com/privkey.pem
+    Header always set Strict-Transport-Security "max-age=63072000"
+
+    RedirectPermanent / https://djm.me/
+
+</VirtualHost>
