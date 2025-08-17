@@ -74,7 +74,7 @@ Set up SSH for the root user:
 ssh dave@EXAMPLE
 wget djm.me/cfg
 . cfg
-setup root
+setup-root-ssh
 exit
 ```
 
