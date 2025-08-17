@@ -1,4 +1,7 @@
+# This is mostly useful when provisioning a brand new server. After
+# that, the daily unattended upgrades should keep it up-to-date.
+
 - name: Update APT cache
   ansible.builtin.apt:
     update_cache: true
-    cache_valid_time: 3600
+    cache_valid_time: 86400
