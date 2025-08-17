@@ -1,0 +1,24 @@
+- name: Create {{ repo }}/.git/hooks
+  ansible.builtin.file:
+    path: '{{ repo }}/.git/hooks'
+    state: directory
+    owner: dave
+    group: dave
+
+- name: Create {{ item }} hook
+  ansible.builtin.template:
+    src: '{{ item }}.sh.j2'
+    dest: '{{ repo }}/.git/hooks/{{ item }}'
+    mode: '0755'
+  loop:
+    - pre-receive
+    - post-receive
+
+- name: Allow pushes to the current branch
+  community.general.git_config:
+    scope: local
+    repo: '{{ repo }}'
+    name: receive.denyCurrentBranch
+    value: ignore
+  become: true # https://github.com/ansible-collections/community.general/issues/4637
+  become_user: dave

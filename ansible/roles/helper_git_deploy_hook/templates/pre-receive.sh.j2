@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+RESET=$'\e[0m'
+LRED=$'\e[91m'
+LINE='========================================================================'
+
+# 'cd' to the working copy
+if [[ ${GIT_DIR:-} = '.' ]]; then
+    cd ..
+    export GIT_DIR='.git'
+fi
+
+# Check for local changes, including untracked files, to ensure they are not overwritten
+if [[ -n $(git status --porcelain) ]]; then
+    echo >&2 "$LINE"
+    echo >&2 "${LRED}Error: The remote has uncommitted changes.${RESET}"
+    echo >&2 "$LINE"
+    exit 1
+fi

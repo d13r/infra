@@ -1,0 +1,55 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+RESET=$'\e[0m'
+BOLD=$'\e[1m'
+LRED=$'\e[91m'
+LYELLOW=$'\e[93m'
+LCYAN=$'\e[96m'
+LINE='========================================================================'
+
+# Make 'header' a function so it can be called from 'after_deploy'
+header () {
+    echo "${LCYAN}${BOLD}${1}${RESET}"
+}
+
+# 'cd' to the working copy
+if [[ ${GIT_DIR:-} = '.' ]]; then
+    cd ..
+    export GIT_DIR='.git'
+fi
+
+# Get the current branch
+if ! head=$(git symbolic-ref HEAD); then
+    echo >&2 "$LINE"
+    echo >&2 "${LRED}Remote is in 'detached HEAD' state, aborting 'post-receive' hook.${RESET}"
+    echo >&2 "$LINE"
+    exit
+fi
+
+# Read the STDIN to detect if this push changed the current branch
+while read oldrev newrev refname; do
+    [[ "$refname" = "$head" ]] && break
+done
+
+# Abort if there's no update, or in case the branch is deleted
+if [[ -z ${newrev//0} ]]; then
+    echo "$LINE"
+    echo "${LYELLOW}No updates to checked out '$(git symbolic-ref --short HEAD)' branch, skipping push hook.${RESET}"
+    echo "$LINE"
+    exit
+fi
+
+# Check out the latest code for the current branch
+echo "$LINE"
+header 'Updating working copy...'
+git reset --hard
+
+# Other commands may be specified in Ansible 'after_deploy'
+{%- if after_deploy -%}
+echo
+{{ after_deploy }}
+{%- endif -%}
+
+# Finished
+echo "$LINE"

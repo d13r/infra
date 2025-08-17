@@ -6,6 +6,11 @@
   become: true
   become_user: dave
 
+- ansible.builtin.import_role:
+    name: helper_git_deploy_hook
+  vars:
+    repo: /local/djm.me
+
 - name: Configure the {{ base_hostname }} vhost
   ansible.builtin.template:
     src: djm.me-site.conf.j2
