@@ -1,0 +1,8 @@
+- name: Provision Beulah Penguin (work desktop)
+  hosts: beulah-penguin
+
+  # Most things are configured by Puppet - these are just my additional packages
+  roles:
+    - role: action_apt_update
+    - role: software_utilities
+    - role: software_desktop_utilities

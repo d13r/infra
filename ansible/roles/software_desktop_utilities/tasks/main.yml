@@ -1,0 +1,5 @@
+- name: Install desktop utilities
+  ansible.builtin.apt:
+    name:
+      - flameshot
+      - gucharmap
